@@ -1,17 +1,13 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import PhoneAuth from "./PhoneAuth";
 
 import "./Auth.css";
 import icon from "../../assets/icon.png";
 import AboutAuth from "./AboutAuth";
 import { signup, login } from "../../actions/auth";
-
-import {
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  signInWithPopup,
-} from "firebase/auth";
 
 const Auth = () => {
   const [isSignup, setIsSignup] = useState(false);
@@ -77,8 +73,13 @@ const Auth = () => {
             <div style={{ display: "flex", justifyContent: "space-between" }}>
               <h4>Password</h4>
               {!isSignup && (
-                <p style={{ color: "#007ac6", fontSize: "13px" }}>
-                  forgot password?
+                <p
+                  style={{
+                    color: "#007ac6",
+                    fontSize: "13px",
+                    cursor: "pointer",
+                  }}>
+                  Forgot Password ?
                 </p>
               )}
             </div>
@@ -90,39 +91,55 @@ const Auth = () => {
                 setPassword(e.target.value);
               }}
             />
-            {isSignup && (
+            {/* {isSignup && (
               <p style={{ color: "#666767", fontSize: "13px" }}>
                 Passwords must contain at least eight
                 <br />
                 characters, including at least 1 letter and 1<br /> number.
               </p>
-            )}
+            )} */}
           </label>
-          {isSignup && (
+          {/* {isSignup && (
             <label htmlFor="check">
               <input type="checkbox" id="check" />
               <p style={{ fontSize: "13px" }}>
-                Opt-in to receive occasional, product
-                <br />
-                updates, user research invitations,
-                <br />
-                company announcements, and digests.
+                Opt-in to receive updates and digests.
               </p>
             </label>
-          )}
+          )} */}
           <button type="submit" className="auth-btn">
-            {isSignup ? "Sign up" : "Log in"}
+            {isSignup ? "Sign Up" : "Log In"}
           </button>
+          <h5 className="option-line">Or</h5>
+          <div style={{ justifyContent: "space-between" }}>
+            <button type="submit" className="auth-google-btn">
+              With Google
+            </button>
+
+            <Link to="/phoneAuth">
+              <button type="submit" className="auth-phone-btn">
+                With Phone
+              </button>
+            </Link>
+          </div>
           {isSignup && (
             <p style={{ color: "#666767", fontSize: "13px" }}>
               By clicking “Sign up”, you agree to our
-              <span style={{ color: "#007ac6" }}>
+              <span style={{ color: "#007ac6", cursor: "pointer" }}>
                 {" "}
                 terms of
                 <br /> service
               </span>
-              ,<span style={{ color: "#007ac6" }}> privacy policy</span> and
-              <span style={{ color: "#007ac6" }}> cookie policy</span>
+              ,
+              <span style={{ color: "#007ac6", cursor: "pointer" }}>
+                {" "}
+                privacy policy
+              </span>{" "}
+              and
+              <span style={{ color: "#007ac6", cursor: "pointer" }}>
+                {" "}
+                cookie policy
+              </span>
             </p>
           )}
         </form>
@@ -132,7 +149,7 @@ const Auth = () => {
             type="button"
             className="handle-switch-btn"
             onClick={handleSwitch}>
-            {isSignup ? "Log in" : "sign up"}
+            {isSignup ? "Log In" : "Sign Up"}
           </button>
         </p>
       </div>
